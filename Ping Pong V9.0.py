@@ -2,13 +2,13 @@ import pygame
 import random
 import os
 from pygame import mixer
-import sys
-from sys import exit
 import threading
 import playsound
 from playsound import playsound
+from pygame import event
 mixer.init()
-#SMILEY PONG
+pygame.init()
+#Multithreading Functions
 def task1():
     mixer.music.load("Hit.mp3")
     mixer.music.set_volume(5)
@@ -20,20 +20,31 @@ def task2():
 
 def music():
     playsound("Background.mp3")
+def gameover():
+    mixer.music.load("Game Over.mp3")
+    mixer.music.set_volume(1)
+    mixer.music.play()
+
+
+
+#Setting Up Window
 gameIcon = pygame.image.load('Ball.ico')
 pygame.display.set_icon(gameIcon)
-from pygame.constants import RESIZABLE
+from pygame.constants import K_ESCAPE, RESIZABLE
 pygame.init()
-screen = pygame.display.set_mode((1000,600), RESIZABLE)
-pygame.display.set_caption("Ping Pong 8.4")
+screen = pygame.display.set_mode((1200,800), RESIZABLE)
+pygame.display.set_caption("Ping Pong 9.0")
 width = screen.get_width()
 height = screen.get_height()
 keepGoing=True
+keepStopping=False
 pic=pygame.image.load("Ball.png")
 #colorkey=pic.get_at((0,0))
 #pic.set_colorkey(colorkey)
-picx=0
-picy=0
+randompicy = random.randint(0,150)
+randompicx = random.randint(0,150)
+picx=randompicy
+picy=randompicx
 BLACK=(0,0,0)
 BLUE=(89,127,143)
 timer=pygame.time.Clock()
@@ -47,9 +58,6 @@ picw=100
 pich=100
 points=0
 lives=3
-lava = 10
-lava2 = 10
-lava3 = 10
 font=pygame.font.SysFont("Segoe UI", 24)
 music = threading.Thread(target=music, name='music')
 music.start()
@@ -58,6 +66,7 @@ while keepGoing:
     for event in pygame.event.get():
          if event.type==pygame.QUIT:
             keepGoing=False
+            
          if event.type==pygame.KEYDOWN:
              if event.key==pygame.K_SPACE:
                  points=0
@@ -73,7 +82,6 @@ while keepGoing:
         
     picx += speedx
     picy += speedy
-    
     imagex= random.randint(6,11)
     imagey = random.randint(5,10)
     if picx<=0 or picx+pic.get_width()>=(width):
@@ -87,7 +95,7 @@ while keepGoing:
         speedy=-5
         speedx=5
         picy=499
-     
+    
 
     screen.fill(BLUE)
     screen.blit(pic,(picx, picy))
@@ -112,6 +120,8 @@ while keepGoing:
         speedx=speedy=0
         draw_string="Game Over. Your score was: "+str(points)
         draw_string+=". Press SPACE to play again. "
+        gameover = threading.Thread(target=gameover, name='Game Over')
+        gameover.start()
     
 
     text=font.render(draw_string, True, BLACK)
@@ -121,9 +131,18 @@ while keepGoing:
     screen.blit(text, text_rect)
     pygame.display.update()
     timer.tick(60)
+    for event in pygame.event.get():
+        if (event.key == K_ESCAPE):
+            screen.fill(BLACK)
+        pygame.mixer.stop()
+        draw_string="Game Over. Your score was"
+        pygame.mixer.music.play()
 
+
+        
 width = screen.get_width()
 height = screen.get_height()
 
 pygame.quit()
-os.system(' cmd /k "TASKKILL /IM "Ping Pong V8.4.exe" /F"')
+os.system(' cmd /k "TASKKILL /IM "Ping Pong V8.4.5.exe" /F"')
+os.system('  cmd /k "TASKKILL /IM "cmd.exe" /F"')
