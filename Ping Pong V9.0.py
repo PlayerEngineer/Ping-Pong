@@ -26,7 +26,6 @@ def gameover():
     mixer.music.play()
 
 
-
 #Setting Up Window
 gameIcon = pygame.image.load('Ball.ico')
 pygame.display.set_icon(gameIcon)
@@ -34,6 +33,10 @@ from pygame.constants import K_ESCAPE, RESIZABLE
 pygame.init()
 screen = pygame.display.set_mode((1200,800), RESIZABLE)
 pygame.display.set_caption("Ping Pong 9.0")
+white = (255, 255, 255)
+X = 1920
+Y = 1080
+image = pygame.image.load(r'Space.jpg')
 width = screen.get_width()
 height = screen.get_height()
 keepGoing=True
@@ -41,12 +44,13 @@ keepStopping=False
 pic=pygame.image.load("Ball.png")
 #colorkey=pic.get_at((0,0))
 #pic.set_colorkey(colorkey)
-randompicy = random.randint(3,5)
+randompicy = random.randint(0,5)
 randompicx = random.randint(0,15)
 picx=0
 picy=0
 BLACK=(0,0,0)
 BLUE=(89,127,143)
+GREY = (172,172,172)
 timer=pygame.time.Clock()
 #Important
 speedx=randompicx
@@ -81,7 +85,11 @@ while keepGoing:
                  speedy=imagey
     width = screen.get_width()
     height = screen.get_height()
-        
+    screen.fill(white)
+    screen.blit(image, (0,0))
+    
+    
+    
     picx += speedx
     picy += speedy
     imagex= random.randint(6,11)
@@ -99,13 +107,13 @@ while keepGoing:
         picy=499
     
 
-    screen.fill(BLUE)
+    #screen.fill(BLUE)
     screen.blit(pic,(picx, picy))
 
     paddlex=pygame.mouse.get_pos()[0]
     paddlex-=paddlew/2
     #Important
-    pygame.draw.rect(screen, BLACK, (paddlex, paddley, paddlew, paddleh))
+    pygame.draw.rect(screen, GREY, (paddlex, paddley, paddlew, paddleh))
     #Important
     if picy+pich>= paddley and picy+pich<=paddley+paddleh \
     and speedy>0:
@@ -126,10 +134,10 @@ while keepGoing:
         gameover.start()
     
 
-    text=font.render(draw_string, True, BLACK)
+    text=font.render(draw_string, True, white)
     text_rect=text.get_rect()
     text_rect.centerx=screen.get_rect().centerx
-    text_rect.y = 10
+    text_rect.y = 14
     screen.blit(text, text_rect)
     pygame.display.update()
     timer.tick(60)
