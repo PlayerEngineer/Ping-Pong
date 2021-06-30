@@ -50,7 +50,7 @@ picx=0
 picy=0
 BLACK=(0,0,0)
 BLUE=(89,127,143)
-GREY = (172,172,172)
+GREY = (91,91,91) 
 timer=pygame.time.Clock()
 #Important
 speedx=randompicx
