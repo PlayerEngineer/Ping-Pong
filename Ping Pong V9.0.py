@@ -40,8 +40,6 @@ keepStopping=False
 pic=pygame.image.load("Ball.png")
 #colorkey=pic.get_at((0,0))
 #pic.set_colorkey(colorkey)
-randompicy = random.randint(0,5)
-randompicx = random.randint(0,15)
 picx=0
 picy=0
 BLACK=(0,0,0)
@@ -49,8 +47,8 @@ BLUE=(89,127,143)
 GREY = (91,91,91) 
 timer=pygame.time.Clock()
 #Important
-speedx=randompicx
-speedy=randompicy
+speedx=5
+speedy=5
 #Important
 paddlew=100
 paddleh=25
