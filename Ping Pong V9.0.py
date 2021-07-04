@@ -1,9 +1,5 @@
-import pygame
-import random
-import os
+import pygame, sys, random, os, threading, playsound
 from pygame import mixer
-import threading
-import playsound
 from playsound import playsound
 from pygame import event
 mixer.init()
