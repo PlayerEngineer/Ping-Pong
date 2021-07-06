@@ -25,7 +25,7 @@ def gameover():
 #Setting Up Window
 gameIcon = pygame.image.load('Ball.ico')
 pygame.display.set_icon(gameIcon)
-from pygame.constants import K_ESCAPE, RESIZABLE
+from pygame.constants import RESIZABLE
 pygame.init()
 screen = pygame.display.set_mode((1200,800), RESIZABLE)
 pygame.display.set_caption("Ping Pong 9.0")
