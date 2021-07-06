@@ -1,7 +1,6 @@
-import pygame, sys, random, os, threading, playsound
-from pygame import mixer
+import pygame, random, os, threading, playsound
+from pygame import mixer, event
 from playsound import playsound
-from pygame import event
 mixer.init()
 pygame.init()
 #Multithreading Functions
