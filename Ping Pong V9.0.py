@@ -1,4 +1,4 @@
-import pygame, random, os, threading, playsound
+import pygame, random, os, threading, playsound, subprocess
 from pygame import mixer, event
 from playsound import playsound
 mixer.init()
@@ -139,5 +139,4 @@ width = screen.get_width()
 height = screen.get_height()
 
 pygame.quit()
-os.system(' cmd /k "TASKKILL /IM "python.exe" /F"')
-os.system('  cmd /k "TASKKILL /IM "cmd.exe" /F"')
+subprocess.call(['Close.bat'])
