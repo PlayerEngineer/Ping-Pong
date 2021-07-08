@@ -3,6 +3,7 @@ from pygame import mixer, event
 from playsound import playsound
 mixer.init()
 pygame.init()
+high_points = 0
 #Multithreading Functions
 def task1():
     mixer.music.load("Hit.mp3")
@@ -14,13 +15,7 @@ def task2():
     mixer.music.play()
 
 def music():
-    playsound("Background.mp3")
-def gameover():
-    mixer.music.load("Game Over.mp3")
-    mixer.music.set_volume(1)
-    mixer.music.play()
-
-
+    playsound("Background.mp3")   
 #Setting Up Window
 gameIcon = pygame.image.load('Ball.ico')
 pygame.display.set_icon(gameIcon)
@@ -28,7 +23,6 @@ from pygame.constants import RESIZABLE
 pygame.init()
 screen = pygame.display.set_mode((1200,800), RESIZABLE)
 pygame.display.set_caption("Ping Pong 9.0")
-Stats = open(r"Stats.txt","a")
 white = (255, 255, 255)
 X = 1920
 Y = 1080
@@ -58,9 +52,16 @@ picw=100
 pich=100
 points=0
 lives=3
+f2 = open("Stats.txt", 'r')
+def gameover():
+    mixer.music.load("Game Over.mp3")
+    mixer.music.set_volume(1)
+    mixer.music.play()
 font=pygame.font.SysFont("Segoe UI", 24)
 music = threading.Thread(target=music, name='music')
 music.start()
+
+    
 while keepGoing:
     paddley=height-50
     for event in pygame.event.get():
@@ -81,7 +82,6 @@ while keepGoing:
     height = screen.get_height()
     screen.fill(white)
     screen.blit(image, (0,0))
-    
     
     
     picx += speedx
@@ -121,9 +121,19 @@ while keepGoing:
 
     if lives==0:
         t2 = threading.Thread(target=task2, name='t2')
+        if points > high_points:
+            points_str = str(points)
+            high_points = points
+            f = open ("Stats.txt", 'w')
+            f.write(points_str)
+            f.close()
         speedx=speedy=0
+        f2 = open ("Stats.txt", 'r')
+        stats_result = f2.read()
+        f2.close()
         draw_string="Game Over. Your score was: "+str(points)
         draw_string+=". Press SPACE to play again. "
+        draw_string+="Your high score is "+str(stats_result)
         gameover = threading.Thread(target=gameover, name='Game Over')
         gameover.start()
 
@@ -139,5 +149,4 @@ width = screen.get_width()
 height = screen.get_height()
 
 pygame.quit()
-Stats.close()
 subprocess.call(['Close.bat'])
