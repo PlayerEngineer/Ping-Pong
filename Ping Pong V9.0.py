@@ -28,6 +28,7 @@ from pygame.constants import RESIZABLE
 pygame.init()
 screen = pygame.display.set_mode((1200,800), RESIZABLE)
 pygame.display.set_caption("Ping Pong 9.0")
+Stats = open(r"Stats.txt","a")
 white = (255, 255, 255)
 X = 1920
 Y = 1080
@@ -125,7 +126,6 @@ while keepGoing:
         draw_string+=". Press SPACE to play again. "
         gameover = threading.Thread(target=gameover, name='Game Over')
         gameover.start()
-    
 
     text=font.render(draw_string, True, white)
     text_rect=text.get_rect()
@@ -139,4 +139,5 @@ width = screen.get_width()
 height = screen.get_height()
 
 pygame.quit()
+Stats.close()
 subprocess.call(['Close.bat'])
