@@ -1,8 +1,9 @@
-import pygame, random, os, threading, playsound, subprocess
+import pygame, random, os, threading, playsound, subprocess, datetime
 from pygame import mixer, event
 from playsound import playsound
 mixer.init()
 pygame.init()
+pygame.mouse.set_visible(False)
 high_points = 0
 #Multithreading Functions
 def task1():
@@ -21,9 +22,10 @@ gameIcon = pygame.image.load('Ball.ico')
 pygame.display.set_icon(gameIcon)
 from pygame.constants import RESIZABLE
 pygame.init()
-screen = pygame.display.set_mode((1200,800), RESIZABLE)
+screen = pygame.display.set_mode((1000,700), RESIZABLE)
 pygame.display.set_caption("Ping Pong 9.0")
 white = (255, 255, 255)
+MANUAL_CURSOR = pygame.image.load('Cursor.png').convert_alpha()
 X = 1920
 Y = 1080
 image = pygame.image.load(r'Space.jpg')
@@ -82,8 +84,6 @@ while keepGoing:
     height = screen.get_height()
     screen.fill(white)
     screen.blit(image, (0,0))
-    
-    
     picx += speedx
     picy += speedy
     imagex= random.randint(6,11)
@@ -99,7 +99,7 @@ while keepGoing:
         speedy=-imagey
         speedx=imagex
         picy=499
-    
+    #screen.blit( MANUAL_CURSOR, ( pygame.mouse.get_pos() ) )
 
     #screen.fill(BLUE)
     screen.blit(pic,(picx, picy))
